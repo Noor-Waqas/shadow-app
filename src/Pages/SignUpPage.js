@@ -1,57 +1,40 @@
-import React, { useState , useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const SignUpPage = () => {
-    useEffect(() => {
-        const SaveUser = localStorage.getItem("users");
-        if (SaveUser) {
-          setUser(JSON.parse(SaveUser));
-        }
-      }, []);
-    
-    const naviGate=useNavigate()
-    const [users,setUser]=useState({
-        email: '',
-        password: '',
-      })
-    // const [password,setPassword]=useState();
-    // const [email,setEmail]=useState();
+  // useEffect(() => {
+  //   const SaveUser = localStorage.getItem("users");
+  //   if (SaveUser) {
+  //     setUser(localStorage.getItem("users"));
+  //   }
+  // }, []);
 
-const handleInputChange=(item)=>{
-    const { name, value } = item.target;
-    setUser((prevData) => ({ ...prevData, [name]: value }))
+  const naviGate = useNavigate();
+  //   const [users, setUser] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [email, setEmail] = useState(null);
 
-}
+  const handelSubmit = (e) => {
+    e.preventDefault();
 
-    const SignUpPageHandel =()=>{
-        localStorage.setItem('users', JSON.stringify(setUser));
+    const SaveUser = JSON.parse(localStorage.getItem("users"));
+    const newUser = { password: password, email: email };
+    const updatedUser = SaveUser ? [...SaveUser, newUser] : [newUser];
+
+    console.log("++++++++++++++++++++", updatedUser);
+    if (password === "") {
+      toast.error("Password Requred");
+    } else if (email === "") {
+      toast.error("Email Requred");
+    } else {
+      localStorage.setItem("users", JSON.stringify(updatedUser));
+        setPassword("");
+        setEmail("");
         toast.success("Register Successfully");
-            naviGate("/")
-
-
-
-
-
-            
-        // const newUser = { password,email};
-        // const updatedUser = [...users, newUser];
-        // if (password === "") {
-        //     toast.error("Password Requred");
-        //   } else if (email === "") {
-        //     toast.error("Email Requred");
-        //   }
-        //   else {
-        //     localStorage.setItem("users", JSON.stringify(updatedUser));
-        //     setPassword("");
-        //     setEmail("") 
-        //     toast.success("Register Successfully");
-        //     naviGate("/")
-        // }
-       
-
-
+        naviGate("/");
     }
+  };
 
   return (
     <>
@@ -65,30 +48,29 @@ const handleInputChange=(item)=>{
             <h1 className=" text-success">Sign Up</h1>
             <label className="text-success">Email address</label>
             <input
-               type="email"
-               name="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="form-control text-success"
               aria-describedby="emailHelp"
               placeholder="Enter email"
-             onChange={handleInputChange}
             />
           </div>
           <div className="form-grou">
             <label className="text-success">Password</label>
             <input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               type="password"
               className="form-control "
               placeholder="Password"
-              name="password"
-              onChange={handleInputChange}
-
             />
           </div>
 
           <button
             type="submit"
             className="btn btn-success mt-5 mb-3 form-control"
-            onClick={SignUpPageHandel}
+            onClick={handelSubmit}
           >
             Submit
           </button>
@@ -96,6 +78,6 @@ const handleInputChange=(item)=>{
       </div>
     </>
   );
-}
+};
 
-export default SignUpPage
+export default SignUpPage;
