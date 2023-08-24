@@ -1,13 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const LoginPage = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const naviGate = useNavigate();
+  useEffect(() => {
+    localStorage.setItem("email", "waqas@gmail.com");
+    localStorage.setItem("password", "wq321");
+  }, []);
+
+  const handelSubmit = () => {
+    const userName = localStorage.getItem("email");
+    const userPassword = localStorage.getItem("password");
+
+    if (email === userName && password === userPassword) {
+      toast.success("Login Success");
+      naviGate("/profile");
+    } else {
+      toast.error("Wrong Email OR Password");
+    }
+  };
   return (
     <>
       <div className="form__container d-flex felx-column align-items-center justify-content-center">
         <form>
-          <h4 className="form__heading">User Management System </h4>
+          <div>
+          <h4 className="form__heading ">User Login </h4>
+          </div>
           <hr />
           <div className="mb-3">
             <label htmlFor="exampleInputEmail1" className="form-label">
@@ -15,6 +37,8 @@ const LoginPage = () => {
             </label>
             <input
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="form-control"
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
@@ -25,6 +49,8 @@ const LoginPage = () => {
               Password
             </label>
             <input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               type="password"
               className="form-control"
               id="exampleInputPassword1"
@@ -35,10 +61,11 @@ const LoginPage = () => {
               Don't Have An Account? <Link to="/">Signup !</Link>
             </p>
           </div>
-          <button type="submit" className="form__button">
+          <button type="submit" className="btn btn-success btn-lg"  onClick={handelSubmit}>
             Login
           </button>
         </form>
+        <ToastContainer />
       </div>
     </>
   );

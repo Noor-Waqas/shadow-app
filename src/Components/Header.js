@@ -1,33 +1,44 @@
 import React from "react";
-import { FaHouseUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { CiTrophy } from "react-icons/ci";
 const Header = () => {
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+      <nav className="navbar navbar-expand-md navbar-dark bg-success">
         <div className="container">
-          <span className="navbar-brand">
-            {" "}
-            <FaHouseUser /> User Managment System{" "}
-          </span>
+          <a href="" className="navbar-brand p-2">
+          <CiTrophy/>
+            Shadow App
+          </a>
+          <button
+            className="navbar-toggler"
+            data-toggle="collapse"
+            data-target="#mynav"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
 
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <Link className="nav-link " to="/profile">
-                Add New
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link " to="/users">
-                Users
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link " to="/">
-                Logout{" "}
-              </Link>
-            </li>
-          </ul>
+          <div className="collapse navbar-collapse" id="mynav">
+            <ul className="navbar-nav ml-auto text-center">
+              <li className=" nav-item ">
+                <a href="" className="nav-link active ">
+                  <Link className="nav-link " to="/profile">
+                    Create Post
+                  </Link>
+                </a>
+              </li>
+              <li className=" nav-item">
+                <a href="" className="nav-link ">
+                  <Link className="nav-link " to="/users">
+                    All Post
+                  </Link>
+                </a>
+              </li>
+              <button className="btn btn-outline-dark btn-sm ">
+                <Link className="nav-link "  to="/">Logout</Link>
+              </button>
+            </ul>
+          </div>
         </div>
       </nav>
     </div>
