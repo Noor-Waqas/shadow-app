@@ -62,11 +62,11 @@ const HomePage = () => {
       setGender("");
       setChecked("");
       // localStorage.setItem("name", name);
-      toast.success("User Save :");
+      toast.success("Post Save :");
     }
     console.log("data", post);
   };
-  let ary = [];
+  // let ary = [];
   return (
     <>
       {/* {post.map((user, index) => (
