@@ -1,14 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { CiTrophy } from "react-icons/ci";
+import img from "../images/headerImg.jpg"
 const Header = () => {
   return (
     <div>
       <nav className="navbar navbar-expand-md navbar-dark bg-success">
         <div className="container">
           <a href="" className="navbar-brand p-2">
-          <CiTrophy/>
-            Shadow App
+          {/* <CiTrophy/> */}
+          <img src={img} alt="Girl in a jacket" width="50px" height="50px" style={{ borderRadius: "50%"}} />
+           <strong> Shadow App</strong>
           </a>
           <button
             className="navbar-toggler"

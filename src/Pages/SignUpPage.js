@@ -1,21 +1,58 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-
 const SignUpPage = () => {
+    useEffect(() => {
+        const SaveUser = localStorage.getItem("users");
+        if (SaveUser) {
+          setUser(JSON.parse(SaveUser));
+        }
+      }, []);
     
     const naviGate=useNavigate()
-    const [password,setPassword]=useState();
-    const [email,setEmail]=useState();
+    const [users,setUser]=useState({
+        email: '',
+        password: '',
+      })
+    // const [password,setPassword]=useState();
+    // const [email,setEmail]=useState();
 
+const handleInputChange=(item)=>{
+    const { name, value } = item.target;
+    setUser((prevData) => ({ ...prevData, [name]: value }))
 
+}
 
     const SignUpPageHandel =()=>{
-        // toast.success("Sign Up Save :");
-        // naviGate("/");
+        localStorage.setItem('users', JSON.stringify(setUser));
+        toast.success("Register Successfully");
+            naviGate("/")
+
+
+
+
+
+            
+        // const newUser = { password,email};
+        // const updatedUser = [...users, newUser];
+        // if (password === "") {
+        //     toast.error("Password Requred");
+        //   } else if (email === "") {
+        //     toast.error("Email Requred");
+        //   }
+        //   else {
+        //     localStorage.setItem("users", JSON.stringify(updatedUser));
+        //     setPassword("");
+        //     setEmail("") 
+        //     toast.success("Register Successfully");
+        //     naviGate("/")
+        // }
+       
+
 
     }
+
   return (
     <>
       <div className="container-feluid text-center h-35">
@@ -28,12 +65,12 @@ const SignUpPage = () => {
             <h1 className=" text-success">Sign Up</h1>
             <label className="text-success">Email address</label>
             <input
-              type="email"
-              value={email}
+               type="email"
+               name="email"
               className="form-control text-success"
               aria-describedby="emailHelp"
               placeholder="Enter email"
-             onChange={(e) => setEmail(e.target.value)}
+             onChange={handleInputChange}
             />
           </div>
           <div className="form-grou">
@@ -42,8 +79,8 @@ const SignUpPage = () => {
               type="password"
               className="form-control "
               placeholder="Password"
-              value={password}
-             onChange={(e) => setPassword(e.target.value)}
+              name="password"
+              onChange={handleInputChange}
 
             />
           </div>
@@ -59,6 +96,6 @@ const SignUpPage = () => {
       </div>
     </>
   );
-};
+}
 
-export default SignUpPage;
+export default SignUpPage
