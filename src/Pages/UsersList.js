@@ -16,7 +16,7 @@ const UersList = () => {
 
   const deleteHandle = (item) => {
 
-    const data = postData.filter((z) => z.email !== item.email);
+    const data = postData.filter((item) => item.email !== item.email);
     localStorage.setItem("post", JSON.stringify(data));
     setPostData(data);
     toast.success("Post Delete :");
