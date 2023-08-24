@@ -6,32 +6,38 @@ import "react-toastify/dist/ReactToastify.css";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loginMessage, setLoginMessage] = useState("");
   const naviGate = useNavigate();
-  useEffect(() => {
-    localStorage.setItem("email", "waqas@gmail.com");
-    localStorage.setItem("password", "wq321");
-  }, []);
+  // useEffect(() => {
+  //   localStorage.setItem("email", "waqas@gmail.com");
+  //   localStorage.setItem("password", "wq321");
+  // }, []);
 
-  const handelSubmit = () => {
-    const userName = localStorage.getItem("email");
-    const userPassword = localStorage.getItem("password");
-
-    if (email === userName && password === userPassword) {
-      toast.success("Login Success");
-      naviGate("/profile");
+  const handelSubmit = (e) => {
+    e.preventDefault();
+    if (email === "" || password === "") {
+      toast.success("Both fields are required.");
     } else {
-      toast.error("Wrong Email OR Password");
+      // const usersdata = localStorage.getItem("users");
+      const data = JSON.parse(localStorage.getItem("users"));
+      const IsUser = data.find((item) => item.email == email);
+      if (IsUser.email===email && IsUser.password===password) {
+        toast.success("Login Success");
+        naviGate("/profile");
+      } else {
+        toast.success("Invalid username or password.");
+      }
     }
   };
   return (
     <>
-        <div className="container-feluid text-center ">
+      <div className="container-feluid text-center ">
         <h1 className="bg-success text-white">Well Come To Shadow App</h1>
-       </div>
+      </div>
       <div className="form__container d-flex felx-column align-items-center justify-content-center border">
         <form>
           <div>
-          <h2 className="form__heading">User Login </h2>
+            <h2 className="form__heading">User Login </h2>
           </div>
           <hr />
           <div className="mb-3">
@@ -64,19 +70,25 @@ const LoginPage = () => {
               Don't Have An Account? <Link to="/signup">Signup !</Link>
             </p>
           </div> */}
-          <button type="submit" className="btn btn-success btn-lg m-2"  onClick={handelSubmit}>
+          <button
+            type="submit"
+            className="btn btn-success btn-lg m-2"
+            onClick={handelSubmit}
+          >
             Login
           </button>
-          
-          <button type="submit" className="btn btn-success btn-lg">
-          <Link style={{textDecoration:"none",color:"white"}}  to="/signup" >Sign Up</Link>
-            
-          </button>
 
+          <button type="submit" className="btn btn-success btn-lg">
+            <Link
+              style={{ textDecoration: "none", color: "white" }}
+              to="/signup"
+            >
+              Sign Up
+            </Link>
+          </button>
         </form>
         <ToastContainer />
       </div>
-      
     </>
   );
 };
