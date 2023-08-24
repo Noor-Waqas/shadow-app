@@ -34,9 +34,10 @@ const Header = () => {
                   </Link>
                 </a>
               </li>
-              <button className="btn btn-outline-dark btn-sm ">
+              <button className="btn btn-outline-dark btn-sm m-2">
                 <Link className="nav-link "  to="/">Logout</Link>
               </button>
+
             </ul>
           </div>
         </div>

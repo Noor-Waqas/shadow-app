@@ -1,24 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../Components/Header";
-import Modal from "react-modal";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
+
 
 const UersList = () => {
-  const postData = JSON.parse(localStorage.getItem("post"));
+  const [postData, setPostData] = useState(null);
+  useEffect(() => {
+    const postData = JSON.parse(localStorage.getItem("post"));
+    setPostData(postData);
+  }, [localStorage.getItem("post")]);
   // console.log("++++++++++++++++++", postData);
   const profilePIcDefault =
     "https://static.vecteezy.com/system/resources/previews/002/318/271/non_2x/user-profile-icon-free-vector.jpg";
 
-  const deleteHandle = () => {
-    Modal.confirm({
-      title: "Are you sure, you want to delete this Post?",
-      okText: "yes",
-      okType: "danger",
-      onOk: () => {
-        postData((pre) => {
-          return pre.filter((post) => post.id !== post.id);
-        });
-      },
-    });
+  const deleteHandle = (item) => {
+
+    const data = postData.filter((z) => z.email !== item.email);
+    localStorage.setItem("post", JSON.stringify(data));
+    setPostData(data);
+    toast.success("Post Delete :");
   };
   return (
     <div>
@@ -61,7 +62,9 @@ const UersList = () => {
             </div>
             <button
               className="btn btn-success btn-sm mt-4"
-              onClick={deleteHandle}
+              onClick={() => {
+                deleteHandle(item);
+              }}
             >
               Delete Post
             </button>

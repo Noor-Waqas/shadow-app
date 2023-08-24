@@ -25,15 +25,18 @@ const LoginPage = () => {
   };
   return (
     <>
-      <div className="form__container d-flex felx-column align-items-center justify-content-center">
+        <div className="container-feluid text-center ">
+        <h1 className="bg-success text-white">Well Come To Shadow App</h1>
+       </div>
+      <div className="form__container d-flex felx-column align-items-center justify-content-center border">
         <form>
           <div>
-          <h4 className="form__heading ">User Login </h4>
+          <h2 className="form__heading">User Login </h2>
           </div>
           <hr />
           <div className="mb-3">
             <label htmlFor="exampleInputEmail1" className="form-label">
-              Email address
+              Email address :
             </label>
             <input
               type="email"
@@ -46,7 +49,7 @@ const LoginPage = () => {
           </div>
           <div className="mb-3">
             <label htmlFor="exampleInputPassword1" className="form-label">
-              Password
+              Password :
             </label>
             <input
               value={password}
@@ -56,17 +59,24 @@ const LoginPage = () => {
               id="exampleInputPassword1"
             />
           </div>
-          <div className="form__signupLink mb-3">
+          {/* <div className="form__signupLink mb-3">
             <p>
-              Don't Have An Account? <Link to="/">Signup !</Link>
+              Don't Have An Account? <Link to="/signup">Signup !</Link>
             </p>
-          </div>
-          <button type="submit" className="btn btn-success btn-lg"  onClick={handelSubmit}>
+          </div> */}
+          <button type="submit" className="btn btn-success btn-lg m-2"  onClick={handelSubmit}>
             Login
           </button>
+          
+          <button type="submit" className="btn btn-success btn-lg">
+          <Link style={{textDecoration:"none",color:"white"}}  to="/signup" >Sign Up</Link>
+            
+          </button>
+
         </form>
         <ToastContainer />
       </div>
+      
     </>
   );
 };
